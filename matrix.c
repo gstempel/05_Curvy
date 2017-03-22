@@ -86,25 +86,27 @@ struct matrix * make_hermite() {
   ====================*/
 struct matrix * generate_curve_coefs( double p1, double p2, 
 				      double p3, double p4, int type) {
-  struct matrix * poM = new_matrix(4,1);
+  
+  struct matrix * coefs = new_matrix(4,1);
+  ident(coefs); // sets lastcol to 1
+  coefs->m[0][0] = p1;
+  coefs->m[1][0] = p2;
+  coefs->m[2][0] = p3;
+  coefs->m[3][0] = p4;
 
-  poM->m[0][0] = p1;
-  poM->m[1][0] = p2;
-  poM->m[2][0] = p3;
-  poM->m[3][0] = p4;
+  struct matrix * curve;
+  if ( type == HERMITE )
+    curve = make_hermite();
+  else // type == BEZIER
+    curve = make_bezier();
 
-  if ( type == HERMITE ) {
-    struct matrix * Herm = make_hermite();
-    matrix_mult(Herm, poM);
-    free_matrix(Herm);
-  }
+  matrix_mult(curve, coefs);
 
-  else if ( type == BEZIER ) {
-    struct matrix * Bezi = make_bezier();
-    matrix_mult(Bezi, poM);
-    free_matrix(Bezi);
-  }
-  return poM;
+  // free curve
+  free_matrix(curve);
+  
+  return coefs;
+
 }
 
 

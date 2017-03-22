@@ -115,7 +115,7 @@ void parse_file ( char * filename,
 		xvals[1], yvals[1],
 		xvals[2], yvals[2],
 		xvals[3], yvals[3],
-		0.001, HERMITE);
+		0.01, HERMITE);
     }//end hermite
 
     else if ( strncmp(line, "bezier", strlen(line)) == 0 ) {
