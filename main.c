@@ -40,4 +40,5 @@ int main(int argc, char **argv) {
   free_matrix( edges );
   free_matrix( transform );
   //free_matrix( tester );
+  return 0;
 }  
